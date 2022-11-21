@@ -9,14 +9,14 @@ export default function Main(){
   //funcão para reinderizar o componente html do componente
   return (
     <Routes>
-        <Route>
-            path="/acessar-conta"
-            element={ <AcessarConta/>}
-        </Route>
-        <Route>
-            path="/crie-sua-conta"
-            element={<CrieSuaConta/>}
-        </Route>
+        <Route
+        path="/acessar-conta"
+        element={<AcessarConta/>}
+        />
+        <Route
+        path="/crie-sua-conta"
+        element={<CrieSuaConta/>}
+        />
     </Routes>
   )
 }

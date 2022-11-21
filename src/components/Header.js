@@ -17,7 +17,7 @@ export default function Header(){
           <NavLink className="nav-link active" aria-current="page" to="/acessar-conta">Acessar Conta</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/crie-sua-conta">Crie sua Conta</NavLink>
+          <NavLink className="nav-link active" aria-current="page" to="/crie-sua-conta">Crie sua Conta</NavLink>
         </li>
         
         
