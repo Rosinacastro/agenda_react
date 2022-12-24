@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import emailValidation from '../../validations/email-validation';
 import passwordValidation from '../../validations/password-validation';
 import * as services from '../../services/account-services';
+import * as helper from '../../helpers/auth-helper';
 
 export default function LoginForm(){
+
+    const [mensagemErro, setMensagemErro] = useState("");
 
     const {
         control,
@@ -17,25 +20,52 @@ export default function LoginForm(){
 
     } = useForm();
 
-    const onSubmit = (data) => {
 
+    const onSubmit = (data) => {
+   
+        //fazendo o envio dos dados para API
         services.postLogin(data)
         .then(
-            result => {
-                console.log(result);
+            result => {//retorno de sucesso
+
+                //gravar os dados m LOCAL STORAGE
+                helper.signIn(result);
+
+                //redirecionar o usuário para a página de consulta de contatos
+                window.location.href = '/consultar-contatos';
 
             }
 
         )
         .catch(
             e => {
-                console.log(e.response);
+                console.log(e.response)
+
+               /* switch(e.response.status) {
+                       case 401:
+                       setMensagemErro(e.response.data);
+                        break;
+
+                        default:
+                       setMensagemErro('Operação não pôde ser realizada');
+                        break;
+                }*/
+
+               
             }
         ) 
     }
     
     return(
+        
         <form onSubmit={handleSubmit(onSubmit)}>
+
+            {
+                mensagemErro && <div className='alert alert-danger mt-2'>
+                    <strong>{mensagemErro}</strong>
+                </div>
+            }
+
             <div className='mb-3'>
                 <label>Email de Acesso:</label>
                 <Controller
